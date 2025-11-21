@@ -1,74 +1,72 @@
-<div id="body">
-  <div id="heading">
-    <img class="rounded float-start" src="cv_photo.jpg" alt="Koen Van Aken" />
-    <div id="info">
-      <h1>Koen Van Aken</h1>
-      <p>Rijbewijs B</p>
+<div id="heading">
+  <img class="rounded float-start" src="cv_photo.jpg" alt="Koen Van Aken" />
+  <div id="info">
+    <h1>Koen Van Aken</h1>
+    <p>Rijbewijs B</p>
+  </div>
+</div>
+
+<div id="training">
+  <h2>Opleidingen</h2>
+  @for (training of trainings; track training) {
+  <div class="card">
+    <div class="card-body">
+      <p class="fs-5">{{ training.timePeriod }}</p>
+      <h4 class="card-title">{{ training.name }}</h4>
+      <p class="location">{{ training.location }}</p>
+      <p class="card-text">
+        {{ training.description }}
+      </p>
     </div>
   </div>
+  }
+</div>
 
-  <div id="training">
-    <h2>Opleidingen</h2>
-    @for (training of trainings; track training) {
-    <div class="card">
-      <div class="card-body">
-        <p class="fs-5">{{ training.timePeriod }}</p>
-        <h4 class="card-title">{{ training.name }}</h4>
-        <p class="location">{{ training.location }}</p>
-        <p class="card-text">
-          {{ training.description }}
-        </p>
-      </div>
+<div id="career">
+  <h2>Werkervaring</h2>
+  @for (job of jobs; track job) {
+  <div class="card">
+    <div class="card-body">
+      <p class="fs-5">{{ job.timePeriod }}</p>
+      <h4 class="card-title">{{ job.name }}</h4>
+      <p class="location">{{ job.location }}</p>
+      <p class="card-text">
+        {{ job.description }}
+      </p>
     </div>
-    }
   </div>
+  }
+</div>
 
-  <div id="career">
-    <h2>Werkervaring</h2>
-    @for (job of jobs; track job) {
-    <div class="card">
-      <div class="card-body">
-        <p class="fs-5">{{ job.timePeriod }}</p>
-        <h4 class="card-title">{{ job.name }}</h4>
-        <p class="location">{{ job.location }}</p>
-        <p class="card-text">
-          {{ job.description }}
-        </p>
-      </div>
+<div id="skills">
+  <h2>Vaardigheden</h2>
+  @for (skill of skills; track skill) {
+  <div>
+    <h4>{{ skill.skill }}</h4>
+    <div class="bar">
+      <div [ngStyle]="{ width: skill.value }"></div>
     </div>
-    }
   </div>
+  }
+</div>
 
-  <div id="skills">
-    <h2>Vaardigheden</h2>
-    @for (skill of skills; track skill) {
-    <div>
-      <h4>{{ skill.skill }}</h4>
-      <div class="bar">
-        <div [ngStyle]="{ width: skill.value }"></div>
-      </div>
+<div id="languages">
+  <h2>Talen</h2>
+  @for (language of languages; track language) {
+  <div>
+    <h4>{{ language.language }}</h4>
+    <div class="bar">
+      <div [ngStyle]="{ width: language.value }"></div>
     </div>
-    }
   </div>
+  }
+</div>
 
-  <div id="languages">
-    <h2>Talen</h2>
-    @for (language of languages; track language) {
-    <div>
-      <h4>{{ language.language }}</h4>
-      <div class="bar">
-        <div [ngStyle]="{ width: language.value }"></div>
-      </div>
-    </div>
-    }
-  </div>
-
-  <div id="hobbies">
-    <h2>Hobby's en interesses</h2>
-    <p>
-      Studentenvereniging<br />
-      Gaming<br />
-      Jeugdbeweging
-    </p>
-  </div>
+<div id="hobbies">
+  <h2>Hobby's en interesses</h2>
+  <p>
+    Studentenvereniging<br />
+    Gaming<br />
+    Jeugdbeweging
+  </p>
 </div>

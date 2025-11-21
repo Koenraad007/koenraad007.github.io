@@ -2,11 +2,6 @@ img {
   width: 10rem;
 }
 
-#body {
-  margin-top: 60px;
-  padding: 2rem;
-}
-
 #heading {
   display: flex;
 }
