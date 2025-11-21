@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  trainings: Training[] = [
+  private readonly _trainings: Training[] = [
     {
       name: 'Secundair (ASO)',
       description:
@@ -35,7 +35,50 @@ export class HomeComponent {
     },
   ];
 
-  jobs: Job[] = [
+  get trainings(): Training[] {
+    return [...this._trainings].sort(
+      (a, b) =>
+        this.parseStartDate(b.timePeriod).getTime() -
+        this.parseStartDate(a.timePeriod).getTime()
+    );
+  }
+
+  private readonly _jobs: Job[] = [
+    {
+      name: 'Chauffeur',
+      description:
+        "Als chauffeur bij Dockx moet ik auto's of camionettes verplaatsen tussen filialen. Wanneer nodig moet ik ook met de voertuigen naar de autokeuring gaan.",
+      location: 'Dockx, Wilrijk',
+      timePeriod: 'mrt 2024 - heden',
+    },
+    {
+      name: 'Kelner',
+      description:
+        'Als kelner moest ik bestellingen opnemen, bestellingen rondbrengen rondbrengen en tafels afruimen.',
+      location: 'Bier Central, Antwerpen',
+      timePeriod: 'okt 2023 - jan 2024',
+    },
+    {
+      name: 'Mede-organisator',
+      description:
+        'Samen met een team van ongeveer 10 personen organiseren wij jaarlijks het kleine festival San Luce. Doorheen het jaar worden artiesten en allerlei andere zaken vastgelegd. In de periode van het festival moet alles worden opgebouwd, het festival tot een goed einde worden gebracht, en achteraf moet dan alles afgebroken worden.',
+      location: 'San Luce, Rumst',
+      timePeriod: 'okt 2022 - aug 2024',
+    },
+    {
+      name: 'Animator',
+      description:
+        'Als animator bij het Speelplein moest je samen met een team van andere animatoren een of meerdere weken een groep van 50 kinderen entertainen. Om dit te doen is er aan het begin van de week een vergadering om alles te plannen zodat de rest van de week vlot verloopt.',
+      location: 'Speelplein, Boom',
+      timePeriod: 'aug 2021 - aug 2025',
+    },
+    {
+      name: 'Steward',
+      description:
+        'Als steward moest ik mee het festival in goede banen leiden. Enkele taken die ik kreeg, waren onder andere festivalgangers bedienen aan de bar, festivalgangers veilig naar huis begeleiden en toegangsbandjes controleren.',
+      location: 'StuDay, Antwerpen',
+      timePeriod: 'sep 2019 - sep 2022',
+    },
     {
       name: 'Winkelmedewerker',
       description:
@@ -50,35 +93,15 @@ export class HomeComponent {
       location: 'Gezinsbond, Boom',
       timePeriod: 'mrt 2015 - mei 2015',
     },
-    {
-      name: 'Steward',
-      description:
-        'Als steward moest ik mee het festival in goede banen leiden. Enkele taken die ik kreeg, waren onder andere festivalgangers bedienen aan de bar, festivalgangers veilig naar huis begeleiden en toegangsbandjes controleren.',
-      location: 'StuDay, Antwerpen',
-      timePeriod: 'sep 2019 - sep 2022',
-    },
-    {
-      name: 'Kelner',
-      description:
-        'Als kelner moest ik bestellingen opnemen, bestellingen rondbrengen rondbrengen en tafels afruimen.',
-      location: 'Bier Central, Antwerpen',
-      timePeriod: 'okt 2023 - jan 2024',
-    },
-    {
-      name: 'Animator',
-      description:
-        'Als animator bij het Speelplein moest je samen met een team van andere animatoren een of meerdere weken een groep van 50 kinderen entertainen. Om dit te doen is er aan het begin van de week een vergadering om alles te plannen zodat de rest van de week vlot verloopt.',
-      location: 'Speelplein, Boom',
-      timePeriod: 'aug 2021 - heden',
-    },
-    {
-      name: 'Mede-organisator',
-      description:
-        'Samen met een team van ongeveer 10 personen organiseren wij jaarlijks het kleine festival San Luce. Doorheen het jaar worden artiesten en allerlei andere zaken vastgelegd. In de periode van het festival moet alles worden opgebouwd, het festival tot een goed einde worden gebracht, en achteraf moet dan alles afgebroken worden.',
-      location: 'San Luce, Rumst',
-      timePeriod: 'okt 2022 - heden',
-    },
   ];
+
+  get jobs(): Job[] {
+    return [...this._jobs].sort(
+      (a, b) =>
+        this.parseStartDate(b.timePeriod).getTime() -
+        this.parseStartDate(a.timePeriod).getTime()
+    );
+  }
 
   skills: { skill: string; value: string }[] = [
     {
@@ -117,4 +140,30 @@ export class HomeComponent {
       value: '30%',
     },
   ];
+
+  private readonly monthMap: Record<string, number> = {
+    jan: 0,
+    feb: 1,
+    mrt: 2,
+    apr: 3,
+    mei: 4,
+    jun: 5,
+    jul: 6,
+    aug: 7,
+    sep: 8,
+    okt: 9,
+    nov: 10,
+    dec: 11,
+  };
+
+  private parseStartDate(timePeriod: string): Date {
+    if (!timePeriod) return new Date(0);
+    const tp = timePeriod.trim().toLowerCase();
+    const m = /^([a-zçéëôä]{3,4})\s+(\d{4})/i.exec(tp);
+    if (!m) return new Date(0);
+    const monthKey = m[1];
+    const year = Number.parseInt(m[2], 10);
+    const month = this.monthMap[monthKey] ?? 0;
+    return new Date(year, month, 1);
+  }
 }
