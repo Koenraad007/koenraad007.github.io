@@ -40,7 +40,7 @@ img {
   margin-bottom: 0;
 }
 
-#bar {
+.bar {
   border: darkgray solid 1px;
   background-color: white;
   height: 1rem;

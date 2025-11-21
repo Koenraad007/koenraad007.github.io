@@ -44,7 +44,7 @@
     @for (skill of skills; track skill) {
     <div>
       <h4>{{ skill.skill }}</h4>
-      <div id="bar">
+      <div class="bar">
         <div [ngStyle]="{ width: skill.value }"></div>
       </div>
     </div>
@@ -56,7 +56,7 @@
     @for (language of languages; track language) {
     <div>
       <h4>{{ language.language }}</h4>
-      <div id="bar">
+      <div class="bar">
         <div [ngStyle]="{ width: language.value }"></div>
       </div>
     </div>
