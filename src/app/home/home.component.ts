@@ -141,6 +141,12 @@ export class HomeComponent {
     },
   ];
 
+  exportPdf(): void {
+    // Use the browser print dialog which allows saving the page as PDF.
+    // This is simple and works without adding extra dependencies.
+    window.print();
+  }
+
   private readonly monthMap: Record<string, number> = {
     jan: 0,
     feb: 1,
