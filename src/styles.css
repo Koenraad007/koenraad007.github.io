@@ -23,7 +23,6 @@ app-root {
     padding: 0;
   }
 
-  nav,
   footer {
     display: none !important;
   }

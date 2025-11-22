@@ -1,0 +1,17 @@
+.content {
+  padding: 5rem 0 0 2rem;
+}
+
+.navbar-brand {
+  margin-right: 4rem;
+}
+
+@media print {
+  nav {
+    display: none;
+  }
+
+  .content {
+    padding: 0;
+  }
+}
