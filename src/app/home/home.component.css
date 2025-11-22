@@ -18,6 +18,15 @@ img {
   padding: 1rem 2rem;
 }
 
+a {
+  color: #212529;
+  text-decoration: none;
+}
+
+i {
+  margin-right: 0.6rem;
+}
+
 .location {
   color: #888;
   font-weight: bold;
@@ -110,7 +119,7 @@ ul {
 
   #sidebar {
     /* keep a fixed-ish column for the sidebar when printing */
-    flex: 0 0 25%;
+    flex: 0 0 30%;
     padding: 2rem;
     background-color: #343a40;
     color: white;
@@ -118,8 +127,12 @@ ul {
     print-color-adjust: exact;
   }
 
+  #sidebar a {
+    color: white;
+  }
+
   #main {
-    flex: 1 1 75%;
+    flex: 1 1 70%;
     padding: 2rem;
   }
 
