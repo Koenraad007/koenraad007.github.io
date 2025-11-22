@@ -38,8 +38,8 @@ export class HomeComponent {
   get trainings(): Training[] {
     return [...this._trainings].sort(
       (a, b) =>
-        this.parseStartDate(b.timePeriod).getTime() -
-        this.parseStartDate(a.timePeriod).getTime()
+        this.parseEndDate(b.timePeriod).getTime() -
+        this.parseEndDate(a.timePeriod).getTime()
     );
   }
 
@@ -98,8 +98,8 @@ export class HomeComponent {
   get jobs(): Job[] {
     return [...this._jobs].sort(
       (a, b) =>
-        this.parseStartDate(b.timePeriod).getTime() -
-        this.parseStartDate(a.timePeriod).getTime()
+        this.parseEndDate(b.timePeriod).getTime() -
+        this.parseEndDate(a.timePeriod).getTime()
     );
   }
 
@@ -166,6 +166,21 @@ export class HomeComponent {
     if (!timePeriod) return new Date(0);
     const tp = timePeriod.trim().toLowerCase();
     const m = /^([a-zçéëôä]{3,4})\s+(\d{4})/i.exec(tp);
+    if (!m) return new Date(0);
+    const monthKey = m[1];
+    const year = Number.parseInt(m[2], 10);
+    const month = this.monthMap[monthKey] ?? 0;
+    return new Date(year, month, 1);
+  }
+
+  private parseEndDate(timePeriod: string): Date {
+    if (!timePeriod) return new Date(0);
+    const tp = timePeriod.trim().toLowerCase();
+    const parts = tp.split(/[-–—]/);
+    if (parts.length < 2) return new Date(0);
+    const endPart = parts[1].trim();
+    if (endPart.startsWith('heden')) return new Date();
+    const m = /^([a-zçéëôä]{3,4})\s+(\d{4})/i.exec(endPart);
     if (!m) return new Date(0);
     const monthKey = m[1];
     const year = Number.parseInt(m[2], 10);

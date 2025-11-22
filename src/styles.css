@@ -12,3 +12,25 @@ body {
 app-root {
   flex: 1;
 }
+
+.content {
+  padding: 5rem 2rem 0 2rem;
+}
+
+@media print {
+  /* Remove the page padding when printing */
+  .content {
+    padding: 0;
+  }
+
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+}

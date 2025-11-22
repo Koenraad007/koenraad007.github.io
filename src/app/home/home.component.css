@@ -42,7 +42,7 @@ img {
   width: 50%;
 }
 
-#bar div {
+.bar div {
   background-color: lightseagreen;
   height: 100%;
 }
@@ -74,4 +74,153 @@ img {
 
 .export-btn:hover {
   background-color: #0069d9;
+}
+
+ul {
+  padding-left: 1.2rem;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  .export-btn {
+    display: none !important;
+  }
+
+  html,
+  body,
+  app-root,
+  app-home {
+    background: none !important;
+    color: #000 !important;
+  }
+
+  /* Use flexbox for printed layout to improve page flow and avoid unexpected grid breaks */
+  #layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: calc(100% - 0cm);
+    gap: 0;
+  }
+
+  #sidebar {
+    /* keep a fixed-ish column for the sidebar when printing */
+    flex: 0 0 25%;
+    padding: 2rem;
+    background-color: #343a40;
+    color: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #main {
+    flex: 1 1 75%;
+    padding: 2rem;
+  }
+
+  #heading,
+  #skills,
+  #languages {
+    margin-bottom: 2rem;
+  }
+
+  /* Heading/photo in sidebar */
+  #heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  #heading img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  #info {
+    padding: 0;
+  }
+
+  #info h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  #info p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* tidy cards for print */
+  .card {
+    box-shadow: none;
+    border-radius: 0%;
+    border: none;
+    border-left: #333 solid 2px;
+    margin-bottom: 1.6rem;
+    padding: 0 0 0 0.5rem;
+    /* avoid splitting a card across pages */
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 0 0 0.4rem 0;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  #career > h2,
+  #training > h2 {
+    width: 100%;
+    /* make section headings more prominent when printing */
+    margin: 0 0 0.6rem 0;
+    padding: 0.35rem 0 0.4rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #000;
+    border-bottom: #222 solid 3px;
+  }
+
+  .card-title {
+    margin-bottom: 0.25rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #111;
+  }
+
+  .fs-5 {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+
+  .location {
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .bar {
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 }
