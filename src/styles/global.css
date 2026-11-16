@@ -102,12 +102,9 @@ body {
   flex-direction: column;
 }
 
-app-root {
-  flex: 1;
-}
-
+/* The page content between the fixed navbar and the footer */
 .content {
-  padding: 5rem 2rem 0 2rem;
+  flex: 1;
 }
 
 /* ---------- Navbar ---------- */
@@ -197,11 +194,6 @@ app-root {
 /* ---------- Print ---------- */
 
 @media print {
-  /* Remove the page padding when printing */
-  .content {
-    padding: 0;
-  }
-
   footer {
     display: none !important;
   }
