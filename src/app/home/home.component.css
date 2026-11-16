@@ -24,10 +24,12 @@ a {
   text-decoration: none;
 }
 
-i {
-  margin-right: 0.6rem;
-  font-size: 1.1rem;
+.icon {
   width: 1.2rem;
+  height: 1.1rem;
+  margin-right: 0.6rem;
+  vertical-align: -0.2em;
+  fill: currentColor;
 }
 
 #info > div {
