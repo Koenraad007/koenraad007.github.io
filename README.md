@@ -65,8 +65,20 @@ npm run build
 ```
 
 De build, inclusief de vooraf gerenderde pagina's, komt terecht in
-`dist/website/browser`. Publiceren naar GitHub Pages
-(de `gh-pages`-branch) gebeurt met een van de deploy-scripts:
+`dist/website/browser`.
+
+### Automatisch (GitHub Actions)
+
+Bij elke push naar `main` bouwt de workflow
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) de site en zet
+het resultaat op de `gh-pages`-branch. GitHub Pages serveert die branch op
+<https://koenraad007.github.io/>. Je kan de workflow ook manueel starten via
+het tabblad **Actions** op GitHub (*Run workflow*).
+
+### Manueel
+
+De deploy-scripts doen hetzelfde vanaf je eigen machine, bijvoorbeeld om iets
+te publiceren zonder te pushen:
 
 - **macOS / Linux:**
 
