@@ -58,6 +58,24 @@ bij wijzigingen.
   [`src/pages/home/index.astro`](src/pages/home/index.astro).
 - **Foto en favicon** — in de map [`public/`](public/).
 
+## Games toevoegen
+
+De pagina `/games/` haalt in de browser de lijst met repo's van `koenraad007`
+op via de GitHub API, en toont elke repo die:
+
+- begint met **`iogames-`** (bv. `iogames-space-wars` → "Space Wars"),
+- GitHub Pages aan heeft staan,
+- geen fork is en niet gearchiveerd is.
+
+De link gaat naar het *Website*-veld van de repo, of anders naar
+`https://koenraad007.github.io/<repo>/`. De *Description* van de repo komt
+eronder. Een nieuwe game verschijnt dus zonder deze site opnieuw te bouwen.
+
+Zonder login staat GitHub 60 opvragingen per uur per bezoeker toe. Het
+resultaat wordt 10 minuten bewaard in de browser (`sessionStorage`); is de
+limiet toch bereikt, dan toont de pagina een foutmelding met het tijdstip
+waarop het weer kan. De code staat in [`src/lib/games.ts`](src/lib/games.ts).
+
 ## Bouwen en publiceren
 
 ```bash
