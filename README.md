@@ -20,6 +20,10 @@ die voorlopig nog een placeholder is.
 
 - [Angular](https://angular.dev/) 18 met standalone components en de nieuwe
   control flow (`@for`)
+- **Prerendering** (static site generation): bij elke build rendert Angular elke
+  route vooraf naar een statisch HTML-bestand (`home/index.html`,
+  `games/index.html`). Zoekmachines en link-previews zien zo meteen de inhoud;
+  in de browser neemt Angular de pagina daarna over (hydration).
 - Eigen CSS zonder framework; de paar regels die vroeger uit Bootstrap 4 kwamen
   staan nu in `src/styles.css`
 - Iconen van [Font Awesome Free](https://fontawesome.com/) (CC BY 4.0), rechtstreeks
@@ -60,7 +64,8 @@ Alle cv-gegevens staan rechtstreeks in de code:
 npm run build
 ```
 
-De build komt terecht in `dist/website/browser`. Publiceren naar GitHub Pages
+De build, inclusief de vooraf gerenderde pagina's, komt terecht in
+`dist/website/browser`. Publiceren naar GitHub Pages
 (de `gh-pages`-branch) gebeurt met een van de deploy-scripts:
 
 - **macOS / Linux:**
