@@ -1,31 +1,90 @@
-# Website
+# koenraad007.github.io
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+Persoonlijke website van **Koen Van Aken**, gehost via GitHub Pages op
+<https://koenraad007.github.io/>.
 
-## Development server
+De site is in de eerste plaats een **online cv**: een overzicht van opleidingen,
+werkervaring, vaardigheden, talen en hobby's, met contactgegevens en een foto.
+Het cv kan met één klik als PDF worden geëxporteerd (via de printfunctie van de
+browser, met een aparte A4-printopmaak). Daarnaast is er een **Games**-pagina,
+die voorlopig nog een placeholder is.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Pagina's
 
-## Code scaffolding
+| Route    | Component       | Inhoud                                                        |
+| -------- | --------------- | ------------------------------------------------------------- |
+| `/home`  | `HomeComponent` | Het cv (standaardpagina, `/` verwijst hiernaar door)          |
+| `/games` | `GamesComponent`| Placeholder voor toekomstige games                            |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologie
 
-## Build
+- [Angular](https://angular.dev/) 18 met standalone components en de nieuwe
+  control flow (`@for`)
+- [Bootstrap 4.3](https://getbootstrap.com/docs/4.3/) en
+  [Font Awesome 6](https://fontawesome.com/) via CDN (zie `src/index.html`)
+- [`angular-cli-ghpages`](https://github.com/angular-schule/angular-cli-ghpages)
+  voor de deployment naar de `gh-pages`-branch
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Lokaal ontwikkelen
 
-## Running unit tests
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm start
+```
 
-## Running end-to-end tests
+De dev-server draait op <http://localhost:4200/> en herlaadt automatisch bij
+wijzigingen.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Inhoud van het cv aanpassen
 
-## Further help
+Alle cv-gegevens staan rechtstreeks in de code:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Opleidingen, werkervaring, vaardigheden en talen** — arrays in
+  [`src/app/home/home.component.ts`](src/app/home/home.component.ts).
+  Opleidingen en jobs worden automatisch gesorteerd op einddatum (nieuwste
+  eerst). Gebruik voor `timePeriod` het formaat `mmm jjjj - mmm jjjj` met
+  Nederlandse maandafkortingen (`jan`, `feb`, `mrt`, …, `okt`, …) of `heden`
+  als einddatum.
+- **Naam, contactgegevens en hobby's** — in
+  [`src/app/home/home.component.html`](src/app/home/home.component.html).
+- **Foto en favicon** — in de map [`public/`](public/).
 
-## How to update the website
+## Bouwen en publiceren
 
-run "$ ./build_and_deploy.ps1"
+```bash
+npm run build
+```
+
+De build komt terecht in `dist/website/browser`. Publiceren naar GitHub Pages
+(de `gh-pages`-branch) gebeurt met een van de deploy-scripts:
+
+- **macOS / Linux:**
+
+  ```bash
+  ./build_and_deploy.sh
+  ```
+
+  Het script werkt vanuit elke map, installeert de dependencies als
+  `node_modules` ontbreekt, en stopt bij de eerste fout.
+
+- **Windows:** `build_and_deploy.ps1`. Let op: dit script begint met een `cd`
+  naar een hardgecodeerd Windows-pad.
+
+Beide scripts voeren in essentie dit uit:
+
+```bash
+ng build --base-href="https://koenraad007.github.io/"
+```
+
+```bash
+npx angular-cli-ghpages --dir=dist/website/browser
+```
+
+## Overige bestanden
+
+De bestanden `index.html.old`, `contact.html.old`, `cv.css.old` en
+`style.css.old` zijn restanten van de oorspronkelijke statische HTML-versie van
+de site, van vóór de overstap naar Angular. Ze worden niet meer gebruikt.
