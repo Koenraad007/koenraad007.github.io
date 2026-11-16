@@ -73,12 +73,6 @@ a {
   margin-bottom: 1rem;
 }
 
-@media screen and (max-width: 768px) {
-  #bar {
-    width: 100%;
-  }
-}
-
 .export-btn {
   position: fixed;
   top: 5rem;
@@ -99,6 +93,47 @@ a {
 
 ul {
   padding-left: 1.2rem;
+}
+
+/* Tablets and phones: full-width bars, Export button out of the way */
+@media screen and (max-width: 768px) {
+  .bar {
+    width: 100%;
+  }
+
+  .export-btn {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* Phones: stack the photo above the contact details */
+@media screen and (max-width: 576px) {
+  #heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  img {
+    height: 10rem;
+  }
+
+  #info {
+    padding: 1rem 0 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  #info a {
+    overflow-wrap: anywhere;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
 }
 
 @media print {

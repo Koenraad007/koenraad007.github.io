@@ -187,6 +187,13 @@ app-root {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+/* The Export PDF button sits bottom-right on small screens */
+@media screen and (max-width: 768px) {
+  .site-footer {
+    padding-bottom: 4.5rem;
+  }
+}
+
 /* ---------- Print ---------- */
 
 @media print {

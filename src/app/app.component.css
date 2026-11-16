@@ -6,6 +6,23 @@
   margin-right: 4rem;
 }
 
+/* Leave room on the right and for the Export button at the bottom */
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 5rem 2rem 4rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .content {
+    padding: 4.5rem 1rem 4rem;
+  }
+
+  .navbar-brand {
+    margin-right: 1rem;
+  }
+}
+
 @media print {
   nav {
     display: none;
