@@ -20,7 +20,8 @@ die voorlopig nog een placeholder is.
 
 - [Angular](https://angular.dev/) 18 met standalone components en de nieuwe
   control flow (`@for`)
-- [Bootstrap 4.3](https://getbootstrap.com/docs/4.3/) via CDN (zie `src/index.html`)
+- Eigen CSS zonder framework; de paar regels die vroeger uit Bootstrap 4 kwamen
+  staan nu in `src/styles.css`
 - Iconen van [Font Awesome Free](https://fontawesome.com/) (CC BY 4.0), rechtstreeks
   als inline SVG in de templates
 - [`angular-cli-ghpages`](https://github.com/angular-schule/angular-cli-ghpages)

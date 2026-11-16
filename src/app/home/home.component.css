@@ -1,4 +1,5 @@
 img {
+  border-radius: 0.25rem;
   width: auto;
   height: 14rem;
   aspect-ratio: 1 / 1;
@@ -51,7 +52,7 @@ a {
   margin-bottom: 1rem;
 }
 
-.fs-5 {
+.period {
   margin-bottom: 0;
 }
 
@@ -163,7 +164,6 @@ ul {
   #heading img {
     width: 100%;
     height: auto;
-    border-radius: 50%;
   }
 
   #info {
@@ -229,7 +229,7 @@ ul {
     color: #111;
   }
 
-  .fs-5 {
+  .period {
     margin-bottom: 0;
     font-size: 0.9rem;
   }

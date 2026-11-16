@@ -5,7 +5,7 @@
   <aside id="sidebar">
     <div id="heading">
       <img
-        class="rounded float-start"
+        class="photo"
         src="cv_photo.jpg"
         alt="Koen Van Aken"
         width="480"
@@ -96,7 +96,7 @@
       @for (training of trainings; track training) {
       <div class="card">
         <div class="card-body">
-          <p class="fs-5">{{ training.timePeriod }}</p>
+          <p class="period">{{ training.timePeriod }}</p>
           <h4 class="card-title">{{ training.name }}</h4>
           <p class="location">{{ training.location }}</p>
           <p class="card-text">
@@ -112,7 +112,7 @@
       @for (job of jobs; track job) {
       <div class="card">
         <div class="card-body">
-          <p class="fs-5">{{ job.timePeriod }}</p>
+          <p class="period">{{ job.timePeriod }}</p>
           <h4 class="card-title">{{ job.name }}</h4>
           <p class="location">{{ job.location }}</p>
           <p class="card-text">
