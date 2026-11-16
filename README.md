@@ -76,7 +76,7 @@ De build komt terecht in `dist/website/browser`. Publiceren naar GitHub Pages
 Beide scripts voeren in essentie dit uit:
 
 ```bash
-ng build --base-href="https://koenraad007.github.io/"
+ng build
 ```
 
 ```bash

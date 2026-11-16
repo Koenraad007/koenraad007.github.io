@@ -10,5 +10,5 @@ if [ ! -d node_modules ]; then
   npm ci
 fi
 
-npx ng build --base-href="https://koenraad007.github.io/"
+npx ng build
 npx angular-cli-ghpages --dir=dist/website/browser
