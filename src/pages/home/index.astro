@@ -1,0 +1,409 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  trainings,
+  jobs,
+  skills,
+  languages,
+  hobbies,
+  type CvEntry,
+  type Rating,
+} from '../../data/cv';
+import { byEndDateDesc } from '../../data/period';
+
+const sections: { id: string; title: string; entries: CvEntry[] }[] = [
+  { id: 'training', title: 'Opleidingen', entries: byEndDateDesc(trainings) },
+  { id: 'career', title: 'Werkervaring', entries: byEndDateDesc(jobs) },
+];
+
+const ratings: { id: string; title: string; items: Rating[] }[] = [
+  { id: 'skills', title: 'Vaardigheden', items: skills },
+  { id: 'languages', title: 'Talen', items: languages },
+];
+---
+
+<BaseLayout
+  title="Koen Van Aken – Curriculum Vitae"
+  description="Online cv van Koen Van Aken: student Toegepaste Informatica aan de AP Hogeschool in Antwerpen, met een overzicht van opleidingen, werkervaring en vaardigheden."
+  ogDescription="Student Toegepaste Informatica aan de AP Hogeschool in Antwerpen. Opleidingen, werkervaring en vaardigheden."
+>
+  <!-- Saving as PDF goes through the browser's print dialog; the layout is in the @media print rules below. -->
+  <button class="export-btn" onclick="window.print()" title="Export page to PDF">
+    Export PDF
+  </button>
+  <div id="layout">
+    <aside id="sidebar">
+      <div id="heading">
+        <img
+          class="photo"
+          src="/cv_photo.jpg"
+          alt="Koen Van Aken"
+          width="480"
+          height="480"
+          fetchpriority="high"
+        />
+        <div id="info">
+          <h1>Koen Van Aken</h1>
+          <div>
+            <!-- Icons: Font Awesome Free 6.5.2 (CC BY 4.0), https://fontawesome.com -->
+            <div>
+              <svg class="icon" viewBox="0 0 512 512" aria-hidden="true">
+                <path
+                  d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                ></path>
+              </svg>
+              <a href="mailto:koen.vanaken@proton.me">koen.vanaken@proton.me</a>
+            </div>
+            <div>
+              <svg class="icon" viewBox="0 0 512 512" aria-hidden="true">
+                <path
+                  d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+                ></path>
+              </svg>
+              <a href="tel:+32470361088">+32 470 36 10 88</a>
+            </div>
+            <div>
+              <svg class="icon" viewBox="0 0 448 512" aria-hidden="true">
+                <path
+                  d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                ></path>
+              </svg>
+              <a href="https://www.linkedin.com/in/koenva">linkedin.com/in/koenva</a>
+            </div>
+            <div>
+              <svg class="icon" viewBox="0 0 512 512" aria-hidden="true">
+                <path
+                  d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+                ></path>
+              </svg>
+              <span>Rijbewijs B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {
+        ratings.map(({ id, title, items }) => (
+          <section id={id}>
+            <h2>{title}</h2>
+            {items.map(({ name, value }) => (
+              <div>
+                <h4>{name}</h4>
+                <div class="bar">
+                  <div style={`width: ${value}%`} />
+                </div>
+              </div>
+            ))}
+          </section>
+        ))
+      }
+
+      <section id="hobbies">
+        <h2>Hobby's en interesses</h2>
+        <ul>
+          {hobbies.map((hobby) => <li>{hobby}</li>)}
+        </ul>
+      </section>
+    </aside>
+
+    <main id="main">
+      {
+        sections.map(({ id, title, entries }) => (
+          <section id={id}>
+            <h2>{title}</h2>
+            {entries.map((entry) => (
+              <div class="card">
+                <div class="card-body">
+                  <p class="period">{entry.timePeriod}</p>
+                  <h4 class="card-title">{entry.name}</h4>
+                  <p class="location">{entry.location}</p>
+                  <p class="card-text">{entry.description}</p>
+                </div>
+              </div>
+            ))}
+          </section>
+        ))
+      }
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  img {
+    border-radius: 0.25rem;
+    width: auto;
+    height: 14rem;
+    aspect-ratio: 1 / 1;
+  }
+
+  #heading {
+    display: flex;
+  }
+
+  #heading,
+  #training,
+  #career,
+  #skills {
+    margin-bottom: 2rem;
+  }
+
+  #info {
+    padding: 1rem 2rem;
+  }
+
+  a {
+    color: #212529;
+    text-decoration: none;
+  }
+
+  .icon {
+    width: 1.2rem;
+    height: 1.1rem;
+    margin-right: 0.6rem;
+    vertical-align: -0.2em;
+    fill: currentColor;
+  }
+
+  #info > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .location {
+    color: #888;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .card-title {
+    margin-bottom: 0;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .period {
+    margin-bottom: 0;
+  }
+
+  .bar {
+    border: darkgray solid 1px;
+    background-color: white;
+    height: 1rem;
+    width: 50%;
+  }
+
+  .bar div {
+    background-color: lightseagreen;
+    height: 100%;
+  }
+
+  #skills div,
+  #languages div {
+    margin-bottom: 1rem;
+  }
+
+  .export-btn {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    z-index: 999;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .export-btn:hover {
+    background-color: #0069d9;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+  }
+
+  /* Tablets and phones: full-width bars, Export button out of the way */
+  @media screen and (max-width: 768px) {
+    .bar {
+      width: 100%;
+    }
+
+    .export-btn {
+      top: auto;
+      bottom: 1rem;
+      right: 1rem;
+    }
+  }
+
+  /* Phones: stack the photo above the contact details */
+  @media screen and (max-width: 576px) {
+    #heading {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    img {
+      height: 10rem;
+    }
+
+    #info {
+      padding: 1rem 0 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    #info a {
+      overflow-wrap: anywhere;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+  }
+
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    .export-btn {
+      display: none !important;
+    }
+
+    /* Use flexbox for printed layout to improve page flow and avoid unexpected grid breaks */
+    #layout {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: calc(100% - 0cm);
+      gap: 0;
+    }
+
+    #sidebar {
+      /* keep a fixed-ish column for the sidebar when printing */
+      flex: 0 0 30%;
+      padding: 2rem;
+      background-color: #343a40;
+      color: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    #sidebar a {
+      color: white;
+    }
+
+    #main {
+      flex: 1 1 70%;
+      padding: 2rem;
+    }
+
+    #heading,
+    #skills,
+    #languages {
+      margin-bottom: 2rem;
+    }
+
+    /* Heading/photo in sidebar */
+    #heading {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    #heading img {
+      width: 100%;
+      height: auto;
+    }
+
+    #info {
+      padding: 0;
+    }
+
+    #info h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    #info p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* tidy cards for print */
+    .card {
+      box-shadow: none;
+      border-radius: 0%;
+      border: none;
+      border-left: #333 solid 2px;
+      margin-bottom: 1.6rem;
+      padding: 0 0 0 0.5rem;
+      /* avoid splitting a card across pages */
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .card-body {
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin: 0 0 0.4rem 0;
+    }
+
+    h4 {
+      font-size: 1rem;
+    }
+
+    #career > h2,
+    #training > h2 {
+      width: 100%;
+      /* make section headings more prominent when printing */
+      margin: 0 0 0.6rem 0;
+      padding: 0.35rem 0 0.4rem 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #000;
+      border-bottom: #222 solid 3px;
+    }
+
+    .card-title {
+      margin-bottom: 0.25rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #111;
+    }
+
+    .period {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .location {
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .bar {
+      border: none;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  }
+</style>

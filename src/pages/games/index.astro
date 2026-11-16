@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Games – Koen Van Aken"
+  description="Games van Koen Van Aken, gemaakt als hobbyproject."
+>
+  <div
+    id="error-banner"
+    class="banner"
+    role="alert"
+    hidden
+  >
+    <p id="error-text"></p>
+    <button id="error-close" type="button" aria-label="Melding sluiten">
+      &times;
+    </button>
+  </div>
+
+  <h1>Games</h1>
+  <p id="status">Games laden…</p>
+  <noscript>
+    <p>Zet JavaScript aan om de lijst met games te zien.</p>
+  </noscript>
+  <ul id="game-list" hidden></ul>
+
+  <template id="game-item">
+    <li class="game">
+      <a class="game-link"></a>
+      <p class="game-description"></p>
+    </li>
+  </template>
+</BaseLayout>
+
+<script>
+  import { loadGames, RateLimitError, type Game } from '../../lib/games';
+
+  const status = document.getElementById('status')!;
+  const list = document.getElementById('game-list')!;
+  const template = document.getElementById('game-item') as HTMLTemplateElement;
+  const banner = document.getElementById('error-banner')!;
+  const bannerText = document.getElementById('error-text')!;
+
+  document.getElementById('error-close')!.addEventListener('click', () => {
+    banner.hidden = true;
+  });
+
+  function showError(message: string) {
+    bannerText.textContent = message;
+    banner.hidden = false;
+  }
+
+  function render(games: Game[]) {
+    if (games.length === 0) {
+      status.textContent = 'Nog geen games. Kom later nog eens terug!';
+      return;
+    }
+    for (const game of games) {
+      const item = template.content.cloneNode(true) as DocumentFragment;
+      const link = item.querySelector<HTMLAnchorElement>('.game-link')!;
+      link.href = game.url;
+      link.textContent = game.title;
+      const description = item.querySelector('.game-description')!;
+      if (game.description) description.textContent = game.description;
+      else description.remove();
+      list.append(item);
+    }
+    status.hidden = true;
+    list.hidden = false;
+  }
+
+  loadGames().then(render, (error: unknown) => {
+    status.textContent = 'De games konden niet geladen worden.';
+    if (error instanceof RateLimitError) {
+      const time = error.resetAt.toLocaleTimeString('nl-BE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      showError(
+        `GitHub laat even geen opvragingen meer toe (limiet bereikt). Probeer het opnieuw na ${time}.`,
+      );
+    } else {
+      showError('Er ging iets mis bij het ophalen van de games bij GitHub.');
+      console.error(error);
+    }
+  });
+</script>
+
+<style>
+  .banner {
+    position: fixed;
+    top: 4.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1040;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    width: min(36rem, calc(100% - 2rem));
+    padding: 0.75rem 1rem;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .banner[hidden] {
+    display: none;
+  }
+
+  .banner p {
+    flex: 1;
+    margin: 0;
+  }
+
+  .banner button {
+    padding: 0 0.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #game-list {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .game {
+    margin-bottom: 1rem;
+  }
+
+  .game-link {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .game-description {
+    margin: 0;
+    color: #6c757d;
+  }
+</style>

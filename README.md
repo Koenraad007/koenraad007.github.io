@@ -11,52 +11,70 @@ die voorlopig nog een placeholder is.
 
 ## Pagina's
 
-| Route    | Component       | Inhoud                                                        |
-| -------- | --------------- | ------------------------------------------------------------- |
-| `/home`  | `HomeComponent` | Het cv (standaardpagina, `/` verwijst hiernaar door)          |
-| `/games` | `GamesComponent`| Placeholder voor toekomstige games                            |
+| Route     | Bestand                        | Inhoud                                       |
+| --------- | ------------------------------ | -------------------------------------------- |
+| `/home/`  | `src/pages/home/index.astro`   | Het cv (standaardpagina, `/` verwijst hiernaar door) |
+| `/games/` | `src/pages/games/index.astro`  | Placeholder voor toekomstige games           |
+| —         | `src/pages/404.astro`          | Foutpagina voor onbestaande adressen         |
 
 ## Technologie
 
-- [Angular](https://angular.dev/) 18 met standalone components en de nieuwe
-  control flow (`@for`)
-- **Prerendering** (static site generation): bij elke build rendert Angular elke
-  route vooraf naar een statisch HTML-bestand (`home/index.html`,
-  `games/index.html`). Zoekmachines en link-previews zien zo meteen de inhoud;
-  in de browser neemt Angular de pagina daarna over (hydration).
-- Eigen CSS zonder framework; de paar regels die vroeger uit Bootstrap 4 kwamen
-  staan nu in `src/styles.css`
-- Iconen van [Font Awesome Free](https://fontawesome.com/) (CC BY 4.0), rechtstreeks
-  als inline SVG in de templates
-- [`angular-cli-ghpages`](https://github.com/angular-schule/angular-cli-ghpages)
-  voor de deployment naar de `gh-pages`-branch
+- [Astro](https://astro.build/): bij elke build wordt elke pagina omgezet naar
+  gewone HTML. Er wordt geen JavaScript naar de browser gestuurd, tenzij een
+  pagina daar zelf om vraagt (bijvoorbeeld later een game).
+- Elke map of `.astro`-bestand onder `src/pages/` wordt automatisch een pagina.
+- De navigatiebalk, `<head>`-tags en footer staan één keer in
+  `src/layouts/BaseLayout.astro`.
+- Eigen CSS zonder framework: algemene stijlen in `src/styles/global.css`,
+  paginastijlen in een `<style>`-blok onderaan elke pagina (alleen geldig voor
+  die pagina).
+- Iconen van [Font Awesome Free](https://fontawesome.com/) (CC BY 4.0),
+  rechtstreeks als inline SVG.
 
 ## Lokaal ontwikkelen
+
+Vereist Node.js 22 of nieuwer.
 
 ```bash
 npm install
 ```
 
 ```bash
-npm start
+npm run dev
 ```
 
-De dev-server draait op <http://localhost:4200/> en herlaadt automatisch bij
-wijzigingen.
+De dev-server draait op <http://localhost:4321/home/> en herlaadt automatisch
+bij wijzigingen.
 
 ## Inhoud van het cv aanpassen
 
-Alle cv-gegevens staan rechtstreeks in de code:
-
-- **Opleidingen, werkervaring, vaardigheden en talen** — arrays in
-  [`src/app/home/home.component.ts`](src/app/home/home.component.ts).
-  Opleidingen en jobs worden automatisch gesorteerd op einddatum (nieuwste
-  eerst). Gebruik voor `timePeriod` het formaat `mmm jjjj - mmm jjjj` met
-  Nederlandse maandafkortingen (`jan`, `feb`, `mrt`, …, `okt`, …) of `heden`
-  als einddatum.
-- **Naam, contactgegevens en hobby's** — in
-  [`src/app/home/home.component.html`](src/app/home/home.component.html).
+- **Opleidingen, werkervaring, vaardigheden, talen en hobby's** — in
+  [`src/data/cv.ts`](src/data/cv.ts). Opleidingen en jobs worden automatisch
+  gesorteerd op einddatum (nieuwste eerst). Gebruik voor `timePeriod` het
+  formaat `mmm jjjj - mmm jjjj` met Nederlandse maandafkortingen (`jan`, `feb`,
+  `mrt`, …, `okt`, …) of `heden` als einddatum. Een fout in dat formaat laat de
+  build mislukken met een duidelijke foutmelding.
+- **Naam en contactgegevens** — in
+  [`src/pages/home/index.astro`](src/pages/home/index.astro).
 - **Foto en favicon** — in de map [`public/`](public/).
+
+## Games toevoegen
+
+De pagina `/games/` haalt in de browser de lijst met repo's van `koenraad007`
+op via de GitHub API, en toont elke repo die:
+
+- begint met **`iogames-`** (bv. `iogames-space-wars` → "Space Wars"),
+- GitHub Pages aan heeft staan,
+- geen fork is en niet gearchiveerd is.
+
+De link gaat naar het *Website*-veld van de repo, of anders naar
+`https://koenraad007.github.io/<repo>/`. De *Description* van de repo komt
+eronder. Een nieuwe game verschijnt dus zonder deze site opnieuw te bouwen.
+
+Zonder login staat GitHub 60 opvragingen per uur per bezoeker toe. Het
+resultaat wordt 10 minuten bewaard in de browser (`sessionStorage`); is de
+limiet toch bereikt, dan toont de pagina een foutmelding met het tijdstip
+waarop het weer kan. De code staat in [`src/lib/games.ts`](src/lib/games.ts).
 
 ## Bouwen en publiceren
 
@@ -64,46 +82,25 @@ Alle cv-gegevens staan rechtstreeks in de code:
 npm run build
 ```
 
-De build, inclusief de vooraf gerenderde pagina's, komt terecht in
-`dist/website/browser`.
+Dit controleert eerst de code (`astro check`) en zet daarna de volledige site
+in `dist/`. Met `npm run preview` bekijk je die build lokaal.
 
 ### Automatisch (GitHub Actions)
 
 Bij elke push naar `main` bouwt de workflow
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) de site en zet
-het resultaat op de `gh-pages`-branch. GitHub Pages serveert die branch op
-<https://koenraad007.github.io/>. Je kan de workflow ook manueel starten via
-het tabblad **Actions** op GitHub (*Run workflow*).
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) de site en
+publiceert die rechtstreeks op GitHub Pages. Daarvoor moet in de
+repo-instellingen **Settings → Pages → Source** op **GitHub Actions** staan.
 
-### Manueel
-
-De deploy-scripts doen hetzelfde vanaf je eigen machine, bijvoorbeeld om iets
-te publiceren zonder te pushen:
-
-- **macOS / Linux:**
-
-  ```bash
-  ./build_and_deploy.sh
-  ```
-
-  Het script werkt vanuit elke map, installeert de dependencies als
-  `node_modules` ontbreekt, en stopt bij de eerste fout.
-
-- **Windows:** `build_and_deploy.ps1`. Let op: dit script begint met een `cd`
-  naar een hardgecodeerd Windows-pad.
-
-Beide scripts voeren in essentie dit uit:
+Manueel publiceren zonder te pushen kan via het tabblad **Actions** op GitHub
+(*Run workflow*), of met:
 
 ```bash
-ng build
-```
-
-```bash
-npx angular-cli-ghpages --dir=dist/website/browser
+gh workflow run deploy.yml
 ```
 
 ## Overige bestanden
 
 De bestanden `index.html.old`, `contact.html.old`, `cv.css.old` en
 `style.css.old` zijn restanten van de oorspronkelijke statische HTML-versie van
-de site, van vóór de overstap naar Angular. Ze worden niet meer gebruikt.
+de site. Ze worden niet meer gebruikt.
