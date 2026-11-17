@@ -34,7 +34,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  import { loadGames, RateLimitError, type Game } from '../../lib/games';
+  import { loadGames, type Game } from '../../lib/games';
 
   const status = document.getElementById('status')!;
   const list = document.getElementById('game-list')!;
@@ -72,18 +72,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   loadGames().then(render, (error: unknown) => {
     status.textContent = 'De games konden niet geladen worden.';
-    if (error instanceof RateLimitError) {
-      const time = error.resetAt.toLocaleTimeString('nl-BE', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      showError(
-        `GitHub laat even geen opvragingen meer toe (limiet bereikt). Probeer het opnieuw na ${time}.`,
-      );
-    } else {
-      showError('Er ging iets mis bij het ophalen van de games bij GitHub.');
-      console.error(error);
-    }
+    showError('Er ging iets mis bij het ophalen van de games.');
+    console.error(error);
   });
 </script>
 
