@@ -1,7 +1,7 @@
 # koenraad007.github.io
 
 Persoonlijke website van **Koen Van Aken**, gehost via GitHub Pages op
-<https://koenraad007.github.io/>.
+[https://koenraad007.github.io/](https://koenraad007.github.io/).
 
 De site is in de eerste plaats een **online cv**: een overzicht van opleidingen,
 werkervaring, vaardigheden, talen en hobby's, met contactgegevens en een foto.
@@ -11,11 +11,11 @@ die voorlopig nog een placeholder is.
 
 ## Pagina's
 
-| Route     | Bestand                        | Inhoud                                       |
-| --------- | ------------------------------ | -------------------------------------------- |
-| `/home/`  | `src/pages/home/index.astro`   | Het cv (standaardpagina, `/` verwijst hiernaar door) |
-| `/games/` | `src/pages/games/index.astro`  | Placeholder voor toekomstige games           |
-| —         | `src/pages/404.astro`          | Foutpagina voor onbestaande adressen         |
+| Route       | Bestand                         | Inhoud                                                 |
+| ----------- | ------------------------------- | ------------------------------------------------------ |
+| `/home/`  | `src/pages/home/index.astro`  | Het cv (standaardpagina, `/` verwijst hiernaar door) |
+| `/games/` | `src/pages/games/index.astro` | Placeholder voor toekomstige games                     |
+| —          | `src/pages/404.astro`         | Foutpagina voor onbestaande adressen                   |
 
 ## Technologie
 
@@ -43,7 +43,7 @@ npm install
 npm run dev
 ```
 
-De dev-server draait op <http://localhost:4321/home/> en herlaadt automatisch
+De dev-server draait op [http://localhost:4321/home/](http://localhost:4321/home/) en herlaadt automatisch
 bij wijzigingen.
 
 ## Inhoud van het cv aanpassen
@@ -60,21 +60,10 @@ bij wijzigingen.
 
 ## Games toevoegen
 
-De pagina `/games/` haalt in de browser de lijst met repo's van `koenraad007`
-op via de GitHub API, en toont elke repo die:
-
-- begint met **`iogames-`** (bv. `iogames-space-wars` → "Space Wars"),
-- GitHub Pages aan heeft staan,
-- geen fork is en niet gearchiveerd is.
+De pagina `/games/` toont de lijst met games van `koenraad007`.
 
 De link gaat naar het *Website*-veld van de repo, of anders naar
-`https://koenraad007.github.io/<repo>/`. De *Description* van de repo komt
-eronder. Een nieuwe game verschijnt dus zonder deze site opnieuw te bouwen.
-
-Zonder login staat GitHub 60 opvragingen per uur per bezoeker toe. Het
-resultaat wordt 10 minuten bewaard in de browser (`sessionStorage`); is de
-limiet toch bereikt, dan toont de pagina een foutmelding met het tijdstip
-waarop het weer kan. De code staat in [`src/lib/games.ts`](src/lib/games.ts).
+`https://koenraad007.github.io/<repo>/`.
 
 ## Bouwen en publiceren
 
@@ -98,9 +87,3 @@ Manueel publiceren zonder te pushen kan via het tabblad **Actions** op GitHub
 ```bash
 gh workflow run deploy.yml
 ```
-
-## Overige bestanden
-
-De bestanden `index.html.old`, `contact.html.old`, `cv.css.old` en
-`style.css.old` zijn restanten van de oorspronkelijke statische HTML-versie van
-de site. Ze worden niet meer gebruikt.
